@@ -5,8 +5,8 @@ A responsive Bassey's Crib hotel operations dashboard built with plain HTML, CSS
 ## What's included
 
 - Hotel metrics, arrivals, reservations, and recent house activity.
-- Reservation creation with form validation, simulated asynchronous confirmation, and browser-local persistence. Enter a guest name, room number, stay length, and arrival date; rate is optional.
-- Reservation filters, guest and room search, and one-click guest check-in.
+- Reservation creation, editing, and deletion with form validation and browser-local persistence. Enter a guest name, optional email, room number, stay length, and arrival date; rate is optional.
+- Reservation filters, guest and room search, one-click guest check-in, and per-row edit/delete actions.
 - Separate 45/55 sticky workspace screens with photo headers, scrolling records, active navigation dots, and fade/scale reveals.
 - A persistent NGN (₦), USD ($), EUR (€), and GBP (£) selector. Reservations retain their entered currency; totals include only matching records and do not apply exchange rates.
 - Responsive navigation, a persistent light/dark theme toggle, a canvas arrival chart, and a floating Three.js scene with animated 3D hotel objects.

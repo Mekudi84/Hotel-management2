@@ -27,7 +27,21 @@ class HotelManager {
   addReservation(formValues) {
     const reservation = { id: `guest-${Date.now()}`, name: formValues.name.trim(), email: formValues.email?.trim() || "", room: formValues.room.trim(), nights: Number(formValues.nights), rate: Number(formValues.rate) || 0, currency: currentCurrency, arrival: formValues.arrival, status: "Arriving", initials: formValues.name.trim().split(/\s+/).slice(0, 2).map((part) => part[0]).join("").toUpperCase() };
     this.reservations = [reservation, ...this.reservations];
-    if (!roomInventory.some((room) => room.number === reservation.room)) roomInventory.push({ number: reservation.room, status: "Ready" });
+    syncRoomInventory();
+    return reservation;
+  }
+  updateReservation(reservationId, formValues) {
+    const reservation = this.reservations.find((item) => item.id === reservationId);
+    if (!reservation) return null;
+    Object.assign(reservation, { name: formValues.name.trim(), email: formValues.email?.trim() || "", room: formValues.room.trim(), nights: Number(formValues.nights), rate: Number(formValues.rate) || 0, arrival: formValues.arrival, initials: formValues.name.trim().split(/\s+/).slice(0, 2).map((part) => part[0]).join("").toUpperCase() });
+    syncRoomInventory();
+    return reservation;
+  }
+  deleteReservation(reservationId) {
+    const reservationIndex = this.reservations.findIndex((item) => item.id === reservationId);
+    if (reservationIndex === -1) return null;
+    const [reservation] = this.reservations.splice(reservationIndex, 1);
+    syncRoomInventory();
     return reservation;
   }
   checkIn(reservationId) {
@@ -62,9 +76,15 @@ const workspaceScrollObserver = new IntersectionObserver((entries) => {
 manager.reservations.forEach((reservation) => {
   if (!roomInventory.some((room) => room.number === reservation.room)) roomInventory.push({ number: reservation.room, status: "Ready" });
 });
+function syncRoomInventory() {
+  const existingRooms = new Map(roomInventory.map((room) => [room.number, room]));
+  const currentRooms = [...new Set(manager.reservations.map((reservation) => reservation.room))];
+  roomInventory.splice(0, roomInventory.length, ...currentRooms.map((number) => existingRooms.get(number) || { number, status: "Ready" }));
+}
 const reservationRows = document.querySelector("#reservation-rows");
 const toast = document.querySelector("#toast");
 let toastTimeout;
+let editingReservationId = null;
 
 function escapeHTML(value) {
   const element = document.createElement("span");
@@ -79,7 +99,7 @@ function renderReservations(target = reservationRows) {
     const statusClass = isCheckedIn ? "status-checked" : "status-arriving";
     const avatarColor = guestColors[index % guestColors.length];
     const arrivalDate = isValidArrivalDate(reservation.arrival) ? new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short" }).format(new Date(`${reservation.arrival}T12:00:00`)) : "—";
-    return `<tr class="reservation-row"><td><div class="guest-cell"><span class="avatar" style="background:${avatarColor};color:#526458">${escapeHTML(reservation.initials)}</span><span><span class="guest-name">${escapeHTML(reservation.name)}</span><span class="guest-detail">${escapeHTML(reservation.email)}</span></span></div></td><td><span class="room-number">${escapeHTML(reservation.room)}</span></td><td>${escapeHTML(reservation.nights)} night${reservation.nights === 1 ? "" : "s"} <span class="guest-detail">· ${escapeHTML(arrivalDate)}</span></td><td><span class="status-pill ${statusClass}">${escapeHTML(reservation.status)}</span></td><td><button class="row-menu" data-action="${isCheckedIn ? "details" : "check-in"}" data-id="${escapeHTML(reservation.id)}" aria-label="${isCheckedIn ? "View reservation" : "Check in guest"}">${isCheckedIn ? "···" : "↗"}</button></td></tr>`;
+    return `<tr class="reservation-row"><td><div class="guest-cell"><span class="avatar" style="background:${avatarColor};color:#526458">${escapeHTML(reservation.initials)}</span><span><span class="guest-name">${escapeHTML(reservation.name)}</span><span class="guest-detail">${escapeHTML(reservation.email)}</span></span></div></td><td><span class="room-number">${escapeHTML(reservation.room)}</span></td><td>${escapeHTML(reservation.nights)} night${reservation.nights === 1 ? "" : "s"} <span class="guest-detail">· ${escapeHTML(arrivalDate)}</span></td><td><span class="status-pill ${statusClass}">${escapeHTML(reservation.status)}</span></td><td><div class="row-actions">${isCheckedIn ? "" : `<button class="row-menu" data-action="check-in" data-id="${escapeHTML(reservation.id)}" aria-label="Check in ${escapeHTML(reservation.name)}" title="Check in">↗</button>`}<button class="row-menu" data-action="edit" data-id="${escapeHTML(reservation.id)}" aria-label="Edit ${escapeHTML(reservation.name)}" title="Edit reservation">✎</button><button class="row-menu row-delete" data-action="delete" data-id="${escapeHTML(reservation.id)}" aria-label="Delete ${escapeHTML(reservation.name)}" title="Delete reservation">×</button></div></td></tr>`;
   }).join("") : `<tr><td class="empty-state" colspan="5">No records yet. Add a reservation to begin.</td></tr>`;
   document.querySelector("#showing-count").textContent = reservations.length;
   document.querySelector("#table-count").textContent = String(manager.reservations.length).padStart(2, "0");
@@ -125,6 +145,51 @@ function showToast(message) {
   toast.classList.add("visible");
   clearTimeout(toastTimeout);
   toastTimeout = setTimeout(() => toast.classList.remove("visible"), 2600);
+}
+
+function openReservationDialog(reservationId = null) {
+  const dialog = document.querySelector("#reservation-dialog");
+  const form = document.querySelector("#reservation-form");
+  const reservation = reservationId ? manager.reservations.find((item) => item.id === reservationId) : null;
+  if (reservationId && !reservation) return;
+  editingReservationId = reservation?.id || null;
+  form.reset();
+  form.elements.name.value = reservation?.name || "";
+  form.elements.email.value = reservation?.email || "";
+  form.elements.room.value = reservation?.room || "";
+  form.elements.nights.value = reservation?.nights || "";
+  form.elements.arrival.value = reservation?.arrival || "";
+  form.elements.rate.value = reservation?.rate || "";
+  document.querySelector("#dialog-title").textContent = reservation ? "Edit reservation." : "A new arrival.";
+  form.querySelector(".dialog-intro").textContent = reservation ? "Update this guest's stay details." : "Make a little room for someone special.";
+  form.querySelector(".submit-button").innerHTML = reservation ? "Save changes" : "<span>＋</span> Confirm reservation";
+  dialog.showModal();
+}
+
+function handleReservationAction(actionButton) {
+  const { action, id } = actionButton.dataset;
+  if (action === "edit") {
+    openReservationDialog(id);
+    return;
+  }
+  if (action === "delete") {
+    const reservation = manager.reservations.find((item) => item.id === id);
+    if (!reservation || !window.confirm(`Delete the reservation for ${reservation.name}? This cannot be undone.`)) return;
+    manager.deleteReservation(id);
+    persistReservations();
+    renderReservations();
+    if (document.querySelector(".page-body").dataset.view === "reservations") renderWorkspace("reservations", "Reservations");
+    showToast(`${reservation.name}'s reservation was deleted.`);
+    return;
+  }
+  const guest = manager.checkIn(id);
+  if (!guest) return;
+  persistReservations();
+  activityItems.unshift({ icon: "↗", tone: "green", title: `${guest.name} · checked in`, detail: `Room ${guest.room}`, time: "Now" });
+  renderReservations();
+  if (document.querySelector(".page-body").dataset.view === "reservations") renderWorkspace("reservations", "Reservations");
+  renderActivity();
+  showToast(`${guest.name} has been checked in.`);
 }
 
 function setTheme(theme, persist = false) {
@@ -311,15 +376,9 @@ function renderWorkspace(viewName, title) {
     }));
     rows.addEventListener("click", (event) => {
       const actionButton = event.target.closest("[data-action]");
-      if (!actionButton) return;
-      const guest = manager.checkIn(actionButton.dataset.id);
-      if (!guest) return;
-      persistReservations();
-      renderReservations(rows);
-      renderReservations();
-      showToast(`${guest.name} has been checked in.`);
+      if (actionButton) handleReservationAction(actionButton);
     });
-    workspace.querySelector("[data-open-reservation]").addEventListener("click", () => document.querySelector("#reservation-dialog").showModal());
+    workspace.querySelector("[data-open-reservation]").addEventListener("click", () => openReservationDialog());
   }
   workspace.querySelectorAll(".page-dot").forEach((dot) => dot.addEventListener("click", () => setActiveView(dot.dataset.view)));
 }
@@ -349,9 +408,10 @@ function wireEvents() {
     manager.activeFilter = tab.dataset.filter;
     renderReservations();
   }));
-  document.querySelector("#new-reservation-button").addEventListener("click", () => document.querySelector("#reservation-dialog").showModal());
+  document.querySelector("#new-reservation-button").addEventListener("click", () => openReservationDialog());
   document.querySelector("#dialog-close").addEventListener("click", () => document.querySelector("#reservation-dialog").close());
   document.querySelector("#reservation-dialog").addEventListener("click", (event) => { if (event.target === event.currentTarget) event.currentTarget.close(); });
+  document.querySelector("#reservation-dialog").addEventListener("close", () => { editingReservationId = null; });
   document.querySelector("#reservation-form").addEventListener("submit", async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -359,12 +419,15 @@ function wireEvents() {
     const formValues = Object.fromEntries(new FormData(form).entries());
     const submitButton = form.querySelector("button[type='submit']");
     submitButton.disabled = true;
-    submitButton.innerHTML = "<span>✳</span> Confirming...";
+    const reservationId = editingReservationId;
+    const isEditing = Boolean(reservationId);
+    submitButton.innerHTML = isEditing ? "Saving..." : "<span>✳</span> Confirming...";
     try {
-      await new Promise((resolve) => setTimeout(resolve, 420));
-      const reservation = manager.addReservation(formValues);
+      if (!isEditing) await new Promise((resolve) => setTimeout(resolve, 420));
+      const reservation = isEditing ? manager.updateReservation(reservationId, formValues) : manager.addReservation(formValues);
+      if (!reservation) throw new Error("The reservation no longer exists.");
       persistReservations();
-      activityItems.unshift({ icon: "＋", tone: "green", title: `${reservation.name} · reservation added`, detail: `Room ${reservation.room}`, time: "Now" });
+      activityItems.unshift({ icon: isEditing ? "✎" : "＋", tone: "green", title: `${reservation.name} · reservation ${isEditing ? "updated" : "added"}`, detail: `Room ${reservation.room}`, time: "Now" });
       manager.activeFilter = "all";
       document.querySelectorAll(".table-tab").forEach((tab) => tab.classList.toggle("active", tab.dataset.filter === "all"));
       renderReservations();
@@ -374,26 +437,19 @@ function wireEvents() {
       form.reset();
       updateDate();
       document.querySelector("#reservation-dialog").close();
-      showToast(`${reservation.name}'s reservation is confirmed.`);
+      showToast(isEditing ? `${reservation.name}'s reservation was updated.` : `${reservation.name}'s reservation is confirmed.`);
     } catch (error) {
       console.error("Reservation could not be completed.", error);
       showToast("That reservation could not be completed. Please try again.");
     } finally {
       submitButton.disabled = false;
-      submitButton.innerHTML = "<span>＋</span> Confirm reservation";
+      submitButton.innerHTML = editingReservationId ? "Save changes" : "<span>＋</span> Confirm reservation";
     }
   });
   reservationRows.addEventListener("click", (event) => {
     const actionButton = event.target.closest("[data-action]");
     if (!actionButton) return;
-    if (actionButton.dataset.action === "check-in") {
-      const guest = manager.checkIn(actionButton.dataset.id);
-      persistReservations();
-      activityItems.unshift({ icon: "↗", tone: "green", title: `${guest.name} · checked in`, detail: `Room ${guest.room}`, time: "Now" });
-      renderReservations();
-      renderActivity();
-      showToast(`${guest.name} has been checked in.`);
-    } else showToast("Reservation details are up to date.");
+    handleReservationAction(actionButton);
   });
   const searchField = document.createElement("input");
   searchField.className = "reservation-search-field";

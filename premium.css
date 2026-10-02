@@ -627,6 +627,27 @@ tbody td {
   backdrop-filter: blur(22px);
 }
 
+.row-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 3px;
+}
+
+.row-actions .row-menu {
+  flex: 0 0 26px;
+  width: 26px;
+}
+
+.row-actions .row-delete:hover {
+  background: #f7e9e6;
+  color: #a34d40;
+}
+
+html[data-theme="dark"] .row-actions .row-delete:hover {
+  background: #3a2724;
+  color: #efa394;
+}
+
 .reservation-dialog h2 {
   color: #f3ead0;
   font-family: "Bodoni Moda", Georgia, serif;
