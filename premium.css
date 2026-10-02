@@ -784,6 +784,76 @@ html[data-theme="dark"] .row-actions .row-delete:hover {
   border-radius: 6px;
 }
 
+.login-form-wrap .field-label {
+  display: block;
+  margin: 18px 0 8px;
+  color: var(--lux-muted);
+  font: 500 9px "Montserrat", sans-serif;
+  letter-spacing: 1.4px;
+}
+
+.login-form-wrap .form-input {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 5px;
+  background: rgb(255 255 255 / 4%);
+  color: var(--lux-text);
+}
+
+.login-form-wrap .form-input:focus {
+  border-color: rgb(212 175 55 / 65%);
+  outline: 2px solid rgb(212 175 55 / 20%);
+}
+
+.login-switch {
+  margin: 20px 0 0;
+  color: var(--lux-muted);
+  font-size: 11px;
+  text-align: center;
+}
+
+.auth-switch-button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--lux-gold-soft);
+  font: inherit;
+  cursor: pointer;
+}
+
+.auth-switch-button:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.login-error {
+  margin: 12px 0 0;
+  color: #e99a8f;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+html[data-theme="light"] .login-form-wrap .field-label,
+html[data-theme="light"] .login-switch {
+  color: #656b62;
+}
+
+html[data-theme="light"] .login-form-wrap .form-input {
+  border-color: rgb(36 40 32 / 18%);
+  background: #fff;
+  color: #252821;
+}
+
+html[data-theme="light"] .auth-switch-button {
+  color: #765d19;
+}
+
+html[data-theme="light"] .login-error {
+  color: #a4473e;
+}
+
 @keyframes luxury-enter {
   from { opacity: 0; transform: translateY(20px) rotateX(3deg); }
   to { opacity: 1; transform: translateY(0) rotateX(0); }

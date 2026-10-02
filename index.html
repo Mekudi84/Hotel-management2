@@ -24,17 +24,31 @@
       <main class="login-panel">
         <div class="login-form-wrap">
           <span class="panel-eyebrow">BASSEY'S CRIB · HOTEL MANAGEMENT</span>
-          <h2>Sign in.</h2>
-          <p class="login-intro">A warm welcome back.</p>
+          <h2 id="auth-heading">Sign in.</h2>
+          <p class="login-intro" id="auth-intro">A warm welcome back.</p>
           <form id="login-form" novalidate>
             <label class="field-label" for="login-email">EMAIL</label>
-            <input class="form-input" id="login-email" name="email" type="text" autocomplete="username" placeholder="Your email address" required />
+            <input class="form-input" id="login-email" name="email" type="email" autocomplete="username" placeholder="Your email address" required />
             <label class="field-label" for="login-password">PASSWORD</label>
             <input class="form-input" id="login-password" name="password" type="password" autocomplete="current-password" placeholder="Your password" required />
             <p class="login-error" id="login-error" role="alert" hidden></p>
             <button class="primary-button login-submit" type="submit">Sign in <span>→</span></button>
           </form>
-          <p class="login-footnote">PRIVATE MEMBERSHIP · BASSEY'S CRIB</p>
+          <form id="signup-form" novalidate hidden>
+            <label class="field-label" for="signup-name">FULL NAME</label>
+            <input class="form-input" id="signup-name" name="name" type="text" autocomplete="name" placeholder="Your full name" required />
+            <label class="field-label" for="signup-email">EMAIL</label>
+            <input class="form-input" id="signup-email" name="email" type="email" autocomplete="email" placeholder="Your email address" required />
+            <label class="field-label" for="signup-password">PASSWORD</label>
+            <input class="form-input" id="signup-password" name="password" type="password" autocomplete="new-password" minlength="8" placeholder="At least 8 characters" required />
+            <label class="field-label" for="signup-confirm-password">CONFIRM PASSWORD</label>
+            <input class="form-input" id="signup-confirm-password" name="confirmPassword" type="password" autocomplete="new-password" minlength="8" placeholder="Re-enter your password" required />
+            <p class="login-error" id="signup-error" role="alert" hidden></p>
+            <button class="primary-button login-submit" type="submit">Create account <span>→</span></button>
+          </form>
+          <p class="login-switch" id="login-switch">New here? <button class="auth-switch-button" id="show-signup" type="button">Create an account</button></p>
+          <p class="login-switch" id="signup-switch" hidden>Already have an account? <button class="auth-switch-button" id="show-login" type="button">Sign in</button></p>
+          <p class="login-footnote">BROWSER-ONLY ACCOUNT · STORED ON THIS DEVICE</p>
         </div>
       </main>
     </section>
@@ -55,7 +69,7 @@
         </nav>
         <div class="sidebar-bottom">
           <div class="help-line"><span class="help-spark">✳</span><span><strong>Need a hand?</strong><small>Our team is one click away.</small></span><button class="icon-button help-button" aria-label="Contact support">↗</button></div>
-          <button class="profile-button" id="sign-out-button" type="button" title="Sign out"><span class="avatar avatar-admin">HM</span><span class="profile-copy"><strong>Hotel manager</strong><small>Workspace profile</small></span><span class="profile-more">↪</span></button>
+          <button class="profile-button" id="sign-out-button" type="button" title="Log out"><span class="profile-copy"><strong>Log out</strong></span><span class="profile-more" aria-hidden="true">↪</span></button>
         </div>
       </aside>
       <main class="main-content">

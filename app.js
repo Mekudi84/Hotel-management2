@@ -3,7 +3,9 @@
 const STORAGE_KEY = "basseys-crib.reservations.v1";
 const THEME_STORAGE_KEY = "basseys-crib.theme.v2";
 const SESSION_KEY = "basseys-crib.authenticated";
+const ACCOUNTS_KEY = "basseys-crib.accounts.v1";
 const CURRENCY_STORAGE_KEY = "basseys-crib.currency.v1";
+const PASSWORD_HASH_ITERATIONS = 120000;
 const currencies = {
   NGN: { symbol: "₦", locale: "en-NG" },
   USD: { symbol: "$", locale: "en-US" },
@@ -206,34 +208,156 @@ function setTheme(theme, persist = false) {
 }
 
 function initializeLogin() {
-  let isAuthenticated = false;
-  try { isAuthenticated = sessionStorage.getItem(SESSION_KEY) === "true"; }
-  catch (error) { console.warn("Session state could not be read.", error); }
-  document.querySelector("#login-screen").hidden = isAuthenticated;
-  document.querySelector(".app-shell").hidden = !isAuthenticated;
-  document.querySelector("#login-form").addEventListener("submit", (event) => {
+  const loginScreen = document.querySelector("#login-screen");
+  const appShell = document.querySelector(".app-shell");
+  const loginForm = document.querySelector("#login-form");
+  const signupForm = document.querySelector("#signup-form");
+  const loginError = document.querySelector("#login-error");
+  const signupError = document.querySelector("#signup-error");
+
+  function showError(element, message) {
+    element.textContent = message;
+    element.hidden = false;
+  }
+
+  function readAccounts() {
+    const saved = localStorage.getItem(ACCOUNTS_KEY);
+    if (saved === null) return [];
+    const accounts = JSON.parse(saved);
+    if (!Array.isArray(accounts)) throw new Error("Saved accounts have an invalid format.");
+    return accounts;
+  }
+
+  function hexToBytes(value) {
+    if (typeof value !== "string" || !/^(?:[0-9a-f]{2})+$/i.test(value)) {
+      throw new Error("Saved account credentials have an invalid format.");
+    }
+    return Uint8Array.from(value.match(/.{2}/g), (byte) => parseInt(byte, 16));
+  }
+
+  async function hashPassword(password, salt) {
+    if (!window.crypto?.subtle || !window.crypto?.getRandomValues) {
+      throw new Error("Secure password storage is unavailable. Open this site over HTTPS or localhost.");
+    }
+    const saltBytes = salt ? hexToBytes(salt) : window.crypto.getRandomValues(new Uint8Array(16));
+    const key = await window.crypto.subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveBits"]);
+    const bits = await window.crypto.subtle.deriveBits({ name: "PBKDF2", salt: saltBytes, iterations: PASSWORD_HASH_ITERATIONS, hash: "SHA-256" }, key, 256);
+    return {
+      salt: Array.from(saltBytes, (byte) => byte.toString(16).padStart(2, "0")).join(""),
+      hash: Array.from(new Uint8Array(bits), (byte) => byte.toString(16).padStart(2, "0")).join("")
+    };
+  }
+
+  function showWorkspace(account) {
+    const initials = account.name.trim().split(/\s+/).slice(0, 2).map((part) => part[0]).join("").toUpperCase();
+    document.querySelector(".avatar-top").textContent = initials;
+    loginScreen.hidden = true;
+    appShell.hidden = false;
+    window.dispatchEvent(new Event("resize"));
+  }
+
+  function setMode(mode) {
+    const signingUp = mode === "signup";
+    document.querySelector("#auth-heading").textContent = signingUp ? "Create account." : "Sign in.";
+    document.querySelector("#auth-intro").textContent = signingUp ? "Create your local hotel workspace account." : "A warm welcome back.";
+    loginForm.hidden = signingUp;
+    signupForm.hidden = !signingUp;
+    document.querySelector("#login-switch").hidden = signingUp;
+    document.querySelector("#signup-switch").hidden = !signingUp;
+    loginError.hidden = true;
+    signupError.hidden = true;
+    (signingUp ? signupForm : loginForm).reset();
+  }
+
+  try {
+    const sessionEmail = sessionStorage.getItem(SESSION_KEY);
+    const account = sessionEmail && readAccounts().find((savedAccount) => savedAccount.email === sessionEmail);
+    if (account) showWorkspace(account);
+    else {
+      sessionStorage.removeItem(SESSION_KEY);
+      loginScreen.hidden = false;
+      appShell.hidden = true;
+    }
+  } catch (error) {
+    console.warn("Saved sign-in state could not be loaded.", error);
+    loginScreen.hidden = false;
+    appShell.hidden = true;
+    showError(loginError, "Your saved sign-in could not be loaded. Please sign in again.");
+  }
+
+  document.querySelector("#show-signup").addEventListener("click", () => setMode("signup"));
+  document.querySelector("#show-login").addEventListener("click", () => setMode("login"));
+
+  loginForm.addEventListener("submit", async (event) => {
     event.preventDefault();
-    const form = event.currentTarget;
-    const email = form.elements.email.value.trim();
-    const password = form.elements.password.value;
-    if (!email || !password) {
-      document.querySelector("#login-error").textContent = "Enter an email and password to continue.";
-      document.querySelector("#login-error").hidden = false;
+    if (!loginForm.reportValidity()) return;
+    const email = loginForm.elements.email.value.trim().toLowerCase();
+    const password = loginForm.elements.password.value;
+    try {
+      const account = readAccounts().find((savedAccount) => savedAccount.email === email);
+      if (!account) {
+        showError(loginError, "No account found for that email. Create an account to get started.");
+        return;
+      }
+      const credentials = await hashPassword(password, account.salt);
+      if (credentials.hash !== account.hash) {
+        showError(loginError, "That email and password do not match.");
+        return;
+      }
+      sessionStorage.setItem(SESSION_KEY, account.email);
+      loginError.hidden = true;
+      showWorkspace(account);
+    } catch (error) {
+      console.warn("Sign-in could not be completed.", error);
+      showError(loginError, error.message || "Sign-in could not be completed. Please try again.");
+    }
+  });
+
+  signupForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (!signupForm.reportValidity()) return;
+    const name = signupForm.elements.name.value.trim();
+    const email = signupForm.elements.email.value.trim().toLowerCase();
+    const password = signupForm.elements.password.value;
+    const confirmPassword = signupForm.elements.confirmPassword.value;
+    if (!name) {
+      showError(signupError, "Enter your name to create an account.");
       return;
     }
-    try { sessionStorage.setItem(SESSION_KEY, "true"); }
-    catch (error) { console.warn("Session state could not be saved.", error); }
-    document.querySelector("#login-error").hidden = true;
-    document.querySelector("#login-screen").hidden = true;
-    document.querySelector(".app-shell").hidden = false;
-    window.dispatchEvent(new Event("resize"));
+    if (password !== confirmPassword) {
+      showError(signupError, "The passwords do not match.");
+      return;
+    }
+    try {
+      const accounts = readAccounts();
+      if (accounts.some((account) => account.email === email)) {
+        showError(signupError, "An account with that email already exists. Please sign in.");
+        return;
+      }
+      const credentials = await hashPassword(password);
+      const account = { name, email, ...credentials };
+      localStorage.setItem(ACCOUNTS_KEY, JSON.stringify([...accounts, account]));
+      sessionStorage.setItem(SESSION_KEY, email);
+      signupError.hidden = true;
+      showWorkspace(account);
+    } catch (error) {
+      console.warn("Account could not be created.", error);
+      showError(signupError, error.message || "Account could not be created. Please try again.");
+    }
   });
+
   document.querySelector("#sign-out-button").addEventListener("click", () => {
     try { sessionStorage.removeItem(SESSION_KEY); }
-    catch (error) { console.warn("Session state could not be cleared.", error); }
-    document.querySelector("#login-form").reset();
-    document.querySelector(".app-shell").hidden = true;
-    document.querySelector("#login-screen").hidden = false;
+    catch (error) {
+      console.warn("Session state could not be cleared.", error);
+      showError(loginError, "Could not sign out. Please try again.");
+      return;
+    }
+    loginForm.reset();
+    signupForm.reset();
+    appShell.hidden = true;
+    loginScreen.hidden = false;
+    setMode("login");
   });
 }
 
