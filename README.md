@@ -1,10 +1,11 @@
 # Bassey's Crib
 
-A responsive Bassey's Crib hotel operations dashboard built with plain HTML, CSS, and JavaScript. It starts with no guest, room, or activity records; saved records are created only from submitted form inputs. The sign-in screen accepts any non-empty email and password and stores only a tab-session flag. This is a front-end gate, not real authentication; do not use it to protect production data. No backend, build tool, or package installation is required. Open `index.html` in a browser. Google Fonts, Unsplash background photos, and the animated Three.js scene use CDNs, so those visual assets need an internet connection; reservation workflows still run locally without the 3D library.
+A responsive Bassey's Crib hotel operations dashboard built with plain HTML, CSS, and JavaScript. It starts with no guest, room, or activity records; saved records are created only from submitted form inputs. Users can create an account and sign in from the browser. Account records, including salted PBKDF2 password hashes, are stored in `localStorage`; the signed-in session is stored in `sessionStorage` and ends when the browser tab is closed. This is browser-only authentication, not a secure substitute for a backend: accounts and data are limited to that browser and device, can be cleared by the user, and must not protect production or sensitive data. Password hashing requires the browser Web Crypto API, available on HTTPS or localhost. No backend, Node.js, build tool, or package installation is required. Open `index.html` in a browser. Google Fonts, Unsplash background photos, and the animated Three.js scene use CDNs, so those visual assets need an internet connection; reservation workflows still run locally without the 3D library.
 
 ## What's included
 
 - Hotel metrics, arrivals, reservations, and recent house activity.
+- Browser-only account signup, sign-in, and log out. New accounts are signed in automatically after signup.
 - Reservation creation, editing, and deletion with form validation and browser-local persistence. Enter a guest name, optional email, room number, stay length, and arrival date; rate is optional.
 - Reservation filters, guest and room search, one-click guest check-in, and per-row edit/delete actions.
 - Separate 45/55 sticky workspace screens with photo headers, scrolling records, active navigation dots, and fade/scale reveals.
@@ -23,7 +24,7 @@ A responsive Bassey's Crib hotel operations dashboard built with plain HTML, CSS
 - Forms and validation: required guest details, date, and stay length are validated before confirmation.
 - Destructuring and spread syntax: activity rendering and reservation updates.
 - Promises and `async` / `await`: simulated confirmation uses `try` / `catch` / `finally` for error handling.
-- JSON, `localStorage`, and errors: reservations persist in this browser with guarded load and save operations.
+- JSON, `localStorage`, and errors: reservations and salted password hashes persist in this browser with guarded load and save operations; the sign-in session uses `sessionStorage`.
 - Date and internationalization: the dashboard date uses `Date` and `Intl.DateTimeFormat`.
 - Canvas and animation: the arrival chart uses the 2D canvas API; the 3D scene uses Three.js.
 
