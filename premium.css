@@ -1145,3 +1145,42 @@ html[data-theme="light"] .currency-option-copy small {
   from { opacity: 0; transform: translateY(-4px) scale(.98); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
+
+html[data-theme="light"] .topbar .icon-button {
+  color: #51472d;
+}
+
+html[data-theme="light"] .topbar .icon-button:hover {
+  border-color: rgb(141 105 27 / 28%);
+  background: rgb(212 175 55 / 10%);
+  color: #674e13;
+}
+
+html[data-theme="light"] .profile-copy small,
+html[data-theme="light"] .help-line small,
+html[data-theme="light"] .profile-more,
+html[data-theme="light"] .activity-copy small,
+html[data-theme="light"] .activity-time,
+html[data-theme="light"] .login-footnote {
+  color: #62635b;
+}
+
+html[data-theme="light"] .panel .panel-eyebrow,
+html[data-theme="light"] .workspace-content .panel-eyebrow,
+html[data-theme="light"] .login-form-wrap > .panel-eyebrow {
+  color: #76570d;
+}
+
+html[data-theme="light"] .login-intro {
+  color: #5d6058;
+}
+
+html[data-theme="light"] .login-form-wrap .form-input::placeholder,
+html[data-theme="light"] .reservation-dialog .form-input::placeholder {
+  color: #66675f;
+  opacity: 1;
+}
+
+html[data-theme="light"] .login-form-wrap .form-input {
+  border-color: rgb(47 49 40 / 24%);
+}
