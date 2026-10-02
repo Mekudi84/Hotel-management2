@@ -1,0 +1,1147 @@
+:root {
+  color-scheme: dark;
+  --lux-bg: #0a0a0a;
+  --lux-surface: #141414;
+  --lux-glass: rgb(20 20 20 / 76%);
+  --lux-glass-light: rgb(255 255 255 / 4%);
+  --lux-gold: #d4af37;
+  --lux-gold-soft: #f9e498;
+  --lux-gold-deep: #b8860b;
+  --lux-text: #f5f5f0;
+  --lux-muted: rgb(255 255 255 / 58%);
+  --lux-line: rgb(255 255 255 / 10%);
+  font-family: "DM Sans", sans-serif;
+  color: var(--lux-text);
+  background: var(--lux-bg);
+}
+
+html,
+body {
+  min-height: 100%;
+  background: var(--lux-bg);
+  color: var(--lux-text);
+}
+
+body {
+  font-family: "DM Sans", sans-serif;
+}
+
+button,
+input,
+select {
+  font-family: "DM Sans", sans-serif;
+}
+
+h1,
+h2,
+.metric-number,
+.stat-ring {
+  font-family: "Bodoni Moda", Georgia, serif;
+  letter-spacing: 0;
+}
+
+button,
+a,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.app-shell {
+  background: var(--lux-bg);
+}
+
+.sidebar {
+  width: 252px;
+  padding: 30px 17px 18px;
+  border-color: var(--lux-line);
+  background: rgb(12 12 12 / 96%);
+  box-shadow: 16px 0 55px rgb(0 0 0 / 20%);
+}
+
+.brand-mark {
+  width: 36px;
+  height: 36px;
+  transform: rotate(45deg);
+  border: 1px solid var(--lux-gold);
+  color: var(--lux-gold);
+}
+
+.brand-mark > span {
+  font: 600 19px "Bodoni Moda", Georgia, serif;
+  transform: rotate(-45deg);
+}
+
+.brand-mark i {
+  right: 3px;
+  bottom: -1px;
+  color: var(--lux-gold-soft);
+  font: italic 11px "Bodoni Moda", Georgia, serif;
+  transform: rotate(-45deg);
+}
+
+.brand-copy strong,
+.brand-copy small {
+  letter-spacing: 2px;
+}
+
+.brand-copy strong {
+  color: #f0ede4;
+  font-size: 10px;
+}
+
+.brand-copy small {
+  color: rgb(255 255 255 / 42%);
+}
+
+.property-select {
+  min-height: 62px;
+  border-color: var(--lux-line);
+  background: #151515;
+  color: var(--lux-text);
+}
+
+.property-gem {
+  background: rgb(212 175 55 / 12%);
+  color: var(--lux-gold);
+}
+
+.property-select strong {
+  color: #eeece5;
+}
+
+.property-select small,
+.nav-label {
+  color: rgb(255 255 255 / 38%);
+}
+
+.nav-label,
+.metric-label,
+.panel-eyebrow,
+.hero-kicker {
+  font-family: "Montserrat", sans-serif;
+  letter-spacing: 1.65px;
+}
+
+.nav-item {
+  height: 42px;
+  border: 1px solid transparent;
+  color: rgb(255 255 255 / 59%);
+  transition: color .3s, border-color .3s, background .3s, transform .3s;
+}
+
+.nav-item:hover {
+  border-color: rgb(212 175 55 / 16%);
+  background: rgb(255 255 255 / 3%);
+  color: #fff;
+}
+
+.nav-item.active {
+  border-color: rgb(212 175 55 / 20%);
+  background: linear-gradient(100deg, rgb(212 175 55 / 14%), rgb(212 175 55 / 3%));
+  color: var(--lux-gold-soft);
+}
+
+.nav-icon,
+.active .nav-icon {
+  color: var(--lux-gold);
+}
+
+.nav-count {
+  background: rgb(212 175 55 / 13%);
+  color: var(--lux-gold-soft);
+}
+
+.help-line {
+  border-color: var(--lux-line);
+}
+
+.help-spark {
+  color: var(--lux-gold);
+}
+
+.help-line strong,
+.profile-copy strong {
+  color: #f0eee7;
+}
+
+.help-line small,
+.profile-copy small {
+  color: rgb(255 255 255 / 45%);
+}
+
+.profile-button {
+  border-radius: 6px;
+}
+
+.profile-button:hover {
+  background: rgb(255 255 255 / 4%);
+}
+
+.avatar {
+  border-color: rgb(212 175 55 / 35%);
+  background: rgb(212 175 55 / 12%);
+  color: var(--lux-gold-soft);
+}
+
+.main-content {
+  margin-left: 252px;
+  background: var(--lux-bg);
+}
+
+.topbar {
+  height: 62px;
+  padding: 0 34px;
+  border-color: var(--lux-line);
+  background: rgb(10 10 10 / 88%);
+  backdrop-filter: blur(20px);
+}
+
+.breadcrumb {
+  color: rgb(255 255 255 / 42%);
+}
+
+.breadcrumb strong {
+  color: #ebe8de;
+}
+
+.topbar-actions {
+  gap: 9px;
+}
+
+.today-label {
+  color: var(--lux-muted);
+}
+
+.topbar-divider {
+  background: var(--lux-line);
+}
+
+.icon-button {
+  border-color: transparent;
+  color: rgb(255 255 255 / 68%);
+}
+
+.icon-button:hover {
+  border-color: rgb(212 175 55 / 24%);
+  background: rgb(212 175 55 / 8%);
+  color: var(--lux-gold-soft);
+}
+
+.currency-select {
+  height: 32px;
+  padding: 0 9px;
+  border: 1px solid rgb(212 175 55 / 35%);
+  border-radius: 5px;
+  outline: 0;
+  background: #171613;
+  color: var(--lux-gold-soft);
+  cursor: pointer;
+  font-size: 10px;
+}
+
+.currency-select:focus-visible {
+  box-shadow: 0 0 0 3px rgb(212 175 55 / 17%);
+}
+
+.currency-select option {
+  background: #141414;
+  color: #fff;
+}
+
+.page-body {
+  max-width: 1500px;
+  padding: 31px 34px 22px;
+}
+
+.welcome-row {
+  min-height: 220px;
+  padding: 29px 30px;
+  border: 1px solid rgb(212 175 55 / 20%);
+  border-radius: 10px;
+  background: #151512;
+  box-shadow: 0 25px 70px rgb(0 0 0 / 27%);
+}
+
+.welcome-row::before {
+  background-image: linear-gradient(90deg, #0b0b0be8 0%, #11110dcc 41%, #11110d35 100%), var(--welcome-image);
+  background-position: center 52%;
+}
+
+.welcome-copy .eyebrow {
+  color: var(--lux-gold-soft);
+  font-family: "Montserrat", sans-serif;
+  font-size: 9px;
+  letter-spacing: 2px;
+}
+
+.welcome-row h1 {
+  margin: 14px 0 7px;
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 400;
+}
+
+.welcome-copy p {
+  color: rgb(255 255 255 / 63%);
+  font-size: 12px;
+}
+
+.primary-button {
+  min-height: 41px;
+  padding: 0 16px;
+  border: 1px solid #d4af37;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #f9e498, #d4af37 58%, #b8860b);
+  box-shadow: 0 8px 25px rgb(212 175 55 / 14%);
+  color: #211a07;
+  font-family: "Montserrat", sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform .25s, box-shadow .25s, filter .25s;
+}
+
+.primary-button:hover {
+  transform: translateY(-2px) scale(1.02);
+  background: linear-gradient(135deg, #fff0b2, #dfbc4b 58%, #c69616);
+  box-shadow: 0 12px 30px rgb(212 175 55 / 24%);
+}
+
+.primary-button:active {
+  transform: scale(.97);
+}
+
+.metrics-grid {
+  gap: 14px;
+  margin: 17px 0;
+}
+
+.metric-card,
+.panel {
+  border: 1px solid var(--lux-line);
+  border-radius: 9px;
+  background: var(--lux-glass);
+  box-shadow: 0 14px 36px rgb(0 0 0 / 17%);
+  backdrop-filter: blur(18px);
+}
+
+.metric-card {
+  min-height: 125px;
+  padding: 17px;
+  transform-style: preserve-3d;
+  transition: border-color .35s, transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .35s;
+}
+
+.metric-card:hover {
+  transform: perspective(1000px) translateY(-3px) rotateX(.8deg);
+  border-color: rgb(212 175 55 / 38%);
+  box-shadow: 0 20px 45px rgb(0 0 0 / 30%), 0 0 24px rgb(212 175 55 / 5%);
+}
+
+.metric-label {
+  color: rgb(255 255 255 / 48%);
+  font-size: 8px;
+}
+
+.metric-icon {
+  width: 30px;
+  height: 30px;
+  background: rgb(212 175 55 / 10%);
+  color: var(--lux-gold);
+}
+
+.icon-sage,
+.icon-rose,
+.icon-gold,
+.icon-blue {
+  background: rgb(212 175 55 / 10%);
+  color: var(--lux-gold-soft);
+}
+
+.metric-number {
+  color: #f5f2e9;
+  font-size: 30px;
+}
+
+.metric-number > small {
+  color: var(--lux-gold-soft);
+}
+
+.metric-note {
+  color: rgb(255 255 255 / 44%);
+  font-size: 9px;
+}
+
+.metric-progress {
+  background: rgb(255 255 255 / 8%);
+}
+
+.metric-progress span,
+.rose-progress span,
+.gold-progress span {
+  background: linear-gradient(90deg, #b8860b, #f9e498);
+}
+
+.revenue-card {
+  background: linear-gradient(140deg, rgb(32 28 17 / 94%), rgb(17 17 15 / 94%));
+}
+
+.hero-strip {
+  min-height: 205px;
+  margin: 17px 0;
+  border: 1px solid rgb(212 175 55 / 18%);
+  border-radius: 10px;
+  background: linear-gradient(110deg, #171613, #111210 72%, #211c10);
+  box-shadow: 0 18px 44px rgb(0 0 0 / 20%);
+}
+
+.hero-strip::before {
+  background-image: radial-gradient(rgb(212 175 55 / 8%) .7px, transparent .7px);
+}
+
+.hero-message h2 {
+  color: #f3ead0;
+  font-family: "Bodoni Moda", Georgia, serif;
+  font-size: 27px;
+  font-weight: 400;
+}
+
+.hero-message p {
+  color: rgb(255 255 255 / 52%);
+}
+
+.hero-kicker,
+.scene-caption {
+  color: var(--lux-gold-soft);
+}
+
+.text-button,
+.quiet-link,
+.footer-link {
+  color: var(--lux-gold-soft);
+}
+
+.hero-side-stat {
+  border-color: var(--lux-line);
+}
+
+.stat-ring {
+  border-color: var(--lux-gold);
+  color: var(--lux-gold-soft);
+  outline-color: rgb(212 175 55 / 35%);
+}
+
+.stat-label,
+.stat-review {
+  color: rgb(255 255 255 / 58%);
+}
+
+.content-grid {
+  gap: 15px;
+}
+
+.panel-header {
+  padding: 14px 18px;
+}
+
+.panel-header h3 {
+  color: #f0eee7;
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+}
+
+.panel-eyebrow {
+  color: var(--lux-gold-soft);
+  font-size: 8px;
+}
+
+.heading-count {
+  background: rgb(212 175 55 / 12%);
+  color: var(--lux-gold-soft);
+}
+
+.table-tools,
+.table-footer,
+.arrival-summary {
+  border-color: var(--lux-line);
+}
+
+.table-tab {
+  color: rgb(255 255 255 / 48%);
+}
+
+.table-tab.active {
+  color: var(--lux-gold-soft);
+}
+
+.table-tab.active::after {
+  background: var(--lux-gold);
+}
+
+.table-tab span,
+.table-footer {
+  color: rgb(255 255 255 / 46%);
+}
+
+.table-footer strong,
+.arrival-summary strong {
+  color: #f2ecda;
+}
+
+thead th {
+  background: #181817;
+  color: rgb(255 255 255 / 40%);
+  font-family: "Montserrat", sans-serif;
+}
+
+tbody tr {
+  border-color: rgb(255 255 255 / 7%);
+}
+
+tbody td {
+  color: rgb(255 255 255 / 62%);
+}
+
+.reservation-row:hover {
+  background: rgb(212 175 55 / 5%);
+}
+
+.guest-name,
+.room-number {
+  color: #ede9dd;
+}
+
+.guest-detail,
+.activity-copy small {
+  color: rgb(255 255 255 / 40%);
+}
+
+.status-arriving {
+  background: rgb(212 175 55 / 12%);
+  color: var(--lux-gold-soft);
+}
+
+.status-checked {
+  background: rgb(88 133 95 / 18%);
+  color: #a4d2a6;
+}
+
+.status-pending {
+  background: rgb(159 92 112 / 18%);
+  color: #e2b1bd;
+}
+
+.chart-key,
+.arrival-summary {
+  color: rgb(255 255 255 / 52%);
+}
+
+.activity-item {
+  border-color: rgb(255 255 255 / 7%);
+}
+
+.activity-icon.green,
+.activity-icon.peach,
+.activity-icon.gold {
+  background: rgb(212 175 55 / 10%);
+  color: var(--lux-gold-soft);
+}
+
+.activity-copy strong {
+  color: #e6e3da;
+}
+
+.workspace-heading {
+  border-right: 1px solid var(--lux-line);
+}
+
+.page-body[data-view="reservations"] .workspace-heading {
+  --workspace-image: url("https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&w=1800&q=85");
+}
+
+.workspace-heading::before {
+  background-image: linear-gradient(180deg, rgb(8 8 8 / 43%), rgb(8 8 8 / 82%)), var(--workspace-image);
+}
+
+.workspace-heading h1 {
+  font-family: "Bodoni Moda", Georgia, serif;
+  font-weight: 400;
+}
+
+.workspace-add-button {
+  color: #211a07;
+}
+
+.workspace-content {
+  background: #101110;
+}
+
+.workspace-panel {
+  border-color: var(--lux-line);
+  background: var(--lux-glass);
+}
+
+.workspace-content .workspace-panel {
+  background: var(--lux-glass);
+}
+
+.analytics-metrics .metric-card {
+  background: var(--lux-glass);
+}
+
+.revenue-bar-row,
+.revenue-bar-row strong {
+  color: var(--lux-muted);
+}
+
+.revenue-bar-track {
+  background: rgb(255 255 255 / 8%);
+}
+
+.revenue-bar-track i {
+  background: linear-gradient(90deg, var(--lux-gold-deep), var(--lux-gold-soft));
+}
+
+.workspace-content .scroll-reveal {
+  filter: blur(3px);
+  transition: opacity .7s ease, transform .7s cubic-bezier(.16,1,.3,1), filter .7s ease;
+}
+
+.workspace-content .scroll-reveal.visible {
+  filter: blur(0);
+}
+
+.page-dot.active {
+  background: var(--lux-gold);
+  box-shadow: 0 0 13px rgb(212 175 55 / 55%);
+}
+
+.page-dot:not(.active):hover {
+  background: rgb(255 255 255 / 80%);
+}
+
+.reservation-dialog {
+  border-color: var(--lux-line);
+  background: rgb(16 17 16 / 94%);
+  color: var(--lux-text);
+  backdrop-filter: blur(22px);
+}
+
+.reservation-dialog h2 {
+  color: #f3ead0;
+  font-family: "Bodoni Moda", Georgia, serif;
+  font-size: 34px;
+}
+
+.dialog-intro,
+.dialog-note {
+  color: var(--lux-muted);
+}
+
+.field-label {
+  color: rgb(255 255 255 / 58%);
+  font-family: "Montserrat", sans-serif;
+  letter-spacing: 1.5px;
+}
+
+.form-input,
+.reservation-search-field {
+  border-color: rgb(255 255 255 / 13%);
+  border-radius: 6px;
+  outline: 0;
+  background: rgb(255 255 255 / 4%);
+  color: #fff;
+  transition: border-color .25s, box-shadow .25s, background .25s;
+}
+
+.form-input::placeholder,
+.reservation-search-field::placeholder {
+  color: rgb(255 255 255 / 32%);
+}
+
+.form-input:focus,
+.reservation-search-field:focus {
+  border-color: var(--lux-gold);
+  background: rgb(212 175 55 / 4%);
+  box-shadow: 0 0 0 3px rgb(212 175 55 / 12%);
+}
+
+.toast {
+  border-color: rgb(212 175 55 / 28%);
+  background: #191812;
+  color: var(--lux-gold-soft);
+  backdrop-filter: blur(18px);
+}
+
+.page-footer {
+  color: rgb(255 255 255 / 34%);
+  font-family: "Montserrat", sans-serif;
+}
+
+.page-footer i {
+  color: var(--lux-gold);
+}
+
+.login-screen {
+  grid-template-columns: minmax(0, 1.16fr) minmax(400px, .84fr);
+  background: #0a0a0a;
+}
+
+.login-photo-panel {
+  background-image: linear-gradient(90deg, rgb(8 8 8 / 53%), rgb(8 8 8 / 21%)), url("https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=2000&q=90");
+}
+
+.login-photo-panel::after {
+  border-color: rgb(212 175 55 / 15%);
+  background: linear-gradient(0deg, rgb(8 8 8 / 82%), transparent 55%);
+}
+
+.login-brand .brand-mark {
+  border-width: 1px;
+  border-color: var(--lux-gold);
+  color: var(--lux-gold-soft);
+}
+
+.login-brand .brand-copy strong {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  letter-spacing: 3px;
+}
+
+.login-story h1 {
+  font-family: "Bodoni Moda", Georgia, serif;
+  font-size: clamp(54px, 6vw, 82px);
+  line-height: .98;
+}
+
+.login-panel {
+  background: radial-gradient(ellipse at 50% 30%, #1e1b11 0%, #111 54%, #0b0b0b 100%);
+  color: var(--lux-text);
+}
+
+.login-form-wrap {
+  padding: 38px;
+  border: 1px solid rgb(255 255 255 / 9%);
+  border-radius: 12px;
+  background: rgb(20 20 20 / 70%);
+  box-shadow: 0 30px 80px rgb(0 0 0 / 48%), inset 0 1px rgb(255 255 255 / 5%);
+  backdrop-filter: blur(22px);
+  transform-style: preserve-3d;
+  animation: luxury-enter .8s cubic-bezier(.16,1,.3,1) both;
+  transition: transform .7s cubic-bezier(.16,1,.3,1), border-color .4s;
+}
+
+.login-form-wrap:hover {
+  transform: perspective(1000px) rotateY(-1deg) rotateX(.5deg);
+  border-color: rgb(212 175 55 / 24%);
+}
+
+.login-form-wrap > .panel-eyebrow {
+  color: var(--lux-gold-soft);
+  font-family: "Montserrat", sans-serif;
+  letter-spacing: 2px;
+}
+
+.login-form-wrap h2 {
+  color: #f4e8c8;
+  font-family: "Bodoni Moda", Georgia, serif;
+  font-size: 48px;
+}
+
+.login-intro {
+  color: var(--lux-muted);
+}
+
+.login-footnote {
+  color: rgb(255 255 255 / 35%);
+  font-family: "Montserrat", sans-serif;
+  letter-spacing: 1.7px;
+}
+
+.login-submit {
+  min-height: 48px;
+  border-radius: 6px;
+}
+
+@keyframes luxury-enter {
+  from { opacity: 0; transform: translateY(20px) rotateX(3deg); }
+  to { opacity: 1; transform: translateY(0) rotateX(0); }
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+  --lux-bg: #f3f3ef;
+  --lux-surface: #fff;
+  --lux-glass: rgb(255 255 255 / 88%);
+  --lux-glass-light: rgb(0 0 0 / 3%);
+  --lux-text: #252821;
+  --lux-muted: rgb(33 37 31 / 62%);
+  --lux-line: rgb(38 42 34 / 12%);
+  background: var(--lux-bg);
+  color: var(--lux-text);
+}
+
+html[data-theme="light"] body,
+html[data-theme="light"] .app-shell {
+  background: var(--lux-bg);
+  color: var(--lux-text);
+}
+
+html[data-theme="light"] .sidebar,
+html[data-theme="light"] .topbar {
+  border-color: var(--lux-line);
+  background: rgb(250 250 247 / 94%);
+}
+
+html[data-theme="light"] .brand-copy strong,
+html[data-theme="light"] .property-select strong,
+html[data-theme="light"] .help-line strong,
+html[data-theme="light"] .profile-copy strong,
+html[data-theme="light"] .breadcrumb strong,
+html[data-theme="light"] .panel-header h3,
+html[data-theme="light"] .guest-name,
+html[data-theme="light"] .room-number,
+html[data-theme="light"] .metric-number,
+html[data-theme="light"] tbody td {
+  color: #282a24;
+}
+
+html[data-theme="light"] .property-select,
+html[data-theme="light"] .metric-card,
+html[data-theme="light"] .panel,
+html[data-theme="light"] .workspace-content,
+html[data-theme="light"] .workspace-content .workspace-panel {
+  border-color: var(--lux-line);
+  background: rgb(255 255 255 / 91%);
+  color: #282a24;
+}
+
+html[data-theme="light"] .brand-copy small,
+html[data-theme="light"] .nav-label,
+html[data-theme="light"] .property-select small,
+html[data-theme="light"] .metric-label,
+html[data-theme="light"] .metric-note,
+html[data-theme="light"] .guest-detail,
+html[data-theme="light"] .chart-key,
+html[data-theme="light"] .arrival-summary,
+html[data-theme="light"] .table-footer,
+html[data-theme="light"] .nav-item {
+  color: rgb(36 39 33 / 56%);
+}
+
+html[data-theme="light"] .nav-item.active {
+  background: rgb(212 175 55 / 14%);
+  color: #6e5314;
+}
+
+html[data-theme="light"] thead th {
+  background: #f4f2e9;
+  color: #777362;
+}
+
+html[data-theme="light"] tbody tr,
+html[data-theme="light"] .table-tools,
+html[data-theme="light"] .table-footer,
+html[data-theme="light"] .arrival-summary,
+html[data-theme="light"] .activity-item {
+  border-color: rgb(35 38 31 / 10%);
+}
+
+html[data-theme="light"] .workspace-content .scroll-reveal {
+  color: #292b25;
+}
+
+html[data-theme="light"] .form-input,
+html[data-theme="light"] .reservation-search-field,
+html[data-theme="light"] .currency-select {
+  border-color: rgb(40 42 35 / 17%);
+  background: #fff;
+  color: #272a24;
+}
+
+html[data-theme="light"] .reservation-dialog {
+  border-color: var(--lux-line);
+  background: rgb(255 255 252 / 96%);
+  color: #282a24;
+}
+
+html[data-theme="light"] .reservation-dialog h2,
+html[data-theme="light"] .dialog-intro,
+html[data-theme="light"] .dialog-note,
+html[data-theme="light"] .field-label {
+  color: #494a41;
+}
+
+html[data-theme="light"] .login-panel {
+  background: radial-gradient(ellipse at 50% 30%, #fffdf4 0%, #f4f3ed 60%, #ecebe4 100%);
+  color: #252821;
+}
+
+html[data-theme="light"] .login-form-wrap {
+  border-color: rgb(36 40 32 / 12%);
+  background: rgb(255 255 255 / 78%);
+  box-shadow: 0 30px 80px rgb(35 34 25 / 13%);
+}
+
+html[data-theme="light"] .login-form-wrap h2,
+html[data-theme="light"] .login-intro {
+  color: #282a24;
+}
+
+html[data-theme="light"] .login-form-wrap .form-input {
+  background: #fff;
+  color: #252821;
+}
+
+@media (max-width: 760px) {
+  .sidebar {
+    background: #0c0c0c;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  .topbar {
+    padding: 0 12px;
+  }
+
+  .topbar-actions {
+    gap: 3px;
+  }
+
+  .currency-select {
+    max-width: 76px;
+    padding: 0 5px;
+    font-size: 9px;
+  }
+
+  .page-body {
+    padding: 16px 12px;
+  }
+
+  .welcome-row {
+    min-height: 178px;
+    padding: 17px 15px 38px;
+  }
+
+  .welcome-row h1 {
+    max-width: 230px;
+    font-size: 31px;
+  }
+
+  .metrics-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .metric-card {
+    padding: 12px;
+  }
+
+  .hero-strip {
+    grid-template-columns: 1fr .9fr;
+  }
+
+  .hero-side-stat {
+    display: none;
+  }
+
+  .content-grid,
+  .right-column {
+    grid-template-columns: 1fr;
+  }
+
+  .login-screen {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(270px, 40vh) 1fr;
+  }
+
+  .login-photo-panel {
+    min-height: 0;
+    padding: 20px 22px 16px;
+  }
+
+  .login-story {
+    margin: 3vh 0 8px;
+  }
+
+  .login-story h1 {
+    margin: 9px 0;
+    font-size: 42px;
+  }
+
+  .login-photo-caption {
+    display: none;
+  }
+
+  .login-panel {
+    min-height: 60vh;
+    padding: 28px 18px;
+  }
+
+  .login-form-wrap {
+    padding: 27px 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+.currency-control {
+  position: relative;
+  z-index: 30;
+}
+
+.currency-trigger {
+  display: inline-flex;
+  min-width: 49px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0 7px;
+  border: 1px solid rgb(212 175 55 / 50%);
+  border-radius: 7px;
+  background: linear-gradient(145deg, rgb(212 175 55 / 15%), rgb(212 175 55 / 4%));
+  box-shadow: inset 0 1px rgb(255 255 255 / 7%), 0 5px 15px rgb(0 0 0 / 20%);
+  color: var(--lux-gold-soft);
+  cursor: pointer;
+  transition: border-color .25s, box-shadow .25s, transform .25s;
+}
+
+.currency-trigger:hover,
+.currency-trigger[aria-expanded="true"] {
+  transform: translateY(-1px);
+  border-color: var(--lux-gold-soft);
+  box-shadow: 0 0 16px rgb(212 175 55 / 15%);
+}
+
+.currency-trigger:focus-visible,
+.currency-option:focus-visible {
+  outline: 2px solid var(--lux-gold-soft);
+  outline-offset: 2px;
+}
+
+.currency-trigger-symbol,
+.currency-option-symbol {
+  display: grid;
+  flex: none;
+  width: 23px;
+  height: 23px;
+  place-items: center;
+  border: 1px solid rgb(212 175 55 / 47%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 28%, #f9e498, #d4af37 68%, #88650b);
+  box-shadow: 0 2px 9px rgb(212 175 55 / 18%);
+  color: #211a07;
+  font-family: "Bodoni Moda", Georgia, serif;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.currency-caret {
+  margin-top: -3px;
+  color: rgb(249 228 152 / 76%);
+  font-size: 13px;
+}
+
+.currency-menu {
+  position: absolute;
+  top: calc(100% + 9px);
+  right: 0;
+  display: grid;
+  width: 212px;
+  gap: 3px;
+  padding: 7px;
+  border: 1px solid rgb(212 175 55 / 28%);
+  border-radius: 10px;
+  background: rgb(17 17 15 / 96%);
+  box-shadow: 0 18px 42px rgb(0 0 0 / 48%), inset 0 1px rgb(255 255 255 / 5%);
+  backdrop-filter: blur(20px);
+  animation: currency-menu-in .18s cubic-bezier(.16,1,.3,1) both;
+}
+
+.currency-option {
+  display: flex;
+  min-height: 43px;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 8px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--lux-text);
+  cursor: pointer;
+  text-align: left;
+  transition: background .2s, border-color .2s;
+}
+
+.currency-option:hover,
+.currency-option[aria-checked="true"] {
+  border-color: rgb(212 175 55 / 20%);
+  background: rgb(212 175 55 / 9%);
+}
+
+.currency-option-symbol {
+  width: 29px;
+  height: 29px;
+  font-size: 16px;
+}
+
+.currency-option-copy {
+  display: grid;
+  flex: 1;
+  gap: 2px;
+}
+
+.currency-option-copy strong {
+  color: #f1eee5;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.currency-option-copy small {
+  color: rgb(255 255 255 / 42%);
+  font-family: "Montserrat", sans-serif;
+  font-size: 8px;
+  letter-spacing: 1px;
+}
+
+.currency-option-check {
+  color: var(--lux-gold-soft);
+  font-size: 12px;
+  opacity: 0;
+}
+
+.currency-option[aria-checked="true"] .currency-option-check {
+  opacity: 1;
+}
+
+html[data-theme="light"] .currency-trigger {
+  background: linear-gradient(145deg, rgb(212 175 55 / 18%), rgb(212 175 55 / 6%));
+}
+
+html[data-theme="light"] .currency-menu {
+  border-color: rgb(161 126 44 / 26%);
+  background: rgb(255 255 252 / 97%);
+  box-shadow: 0 18px 42px rgb(30 30 24 / 18%);
+}
+
+html[data-theme="light"] .currency-option-copy strong {
+  color: #292b25;
+}
+
+html[data-theme="light"] .currency-option-copy small {
+  color: rgb(38 40 33 / 55%);
+}
+
+@keyframes currency-menu-in {
+  from { opacity: 0; transform: translateY(-4px) scale(.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}

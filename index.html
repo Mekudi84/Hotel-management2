@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f6f7f4" />
+    <meta name="description" content="Bassey's Crib hotel management dashboard." />
+    <title>Bassey's Crib | Hotel Management</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500;600&family=DM+Sans:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="premium.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <section class="login-screen" id="login-screen" aria-label="Sign in to Bassey's Crib">
+      <div class="login-photo-panel">
+        <a class="login-brand" href="#login" aria-label="Bassey's Crib home"><span class="brand-mark"><span>B</span><i>C</i></span><span class="brand-copy"><strong>BASSEY'S CRIB</strong><small>HOTEL &amp; RESIDENCE</small></span></a>
+        <div class="login-story"><span class="login-kicker">A MORE PERSONAL KIND OF STAY</span><h1>Welcome<br />to Bassey's.</h1><p>A considered retreat for the moments that matter.</p></div>
+        <span class="login-photo-caption">BASSEY'S CRIB <i>✦</i> HOTEL &amp; RESIDENCE</span>
+      </div>
+      <main class="login-panel">
+        <div class="login-form-wrap">
+          <span class="panel-eyebrow">BASSEY'S CRIB · HOTEL MANAGEMENT</span>
+          <h2>Sign in.</h2>
+          <p class="login-intro">A warm welcome back.</p>
+          <form id="login-form" novalidate>
+            <label class="field-label" for="login-email">EMAIL</label>
+            <input class="form-input" id="login-email" name="email" type="text" autocomplete="username" placeholder="Your email address" required />
+            <label class="field-label" for="login-password">PASSWORD</label>
+            <input class="form-input" id="login-password" name="password" type="password" autocomplete="current-password" placeholder="Your password" required />
+            <p class="login-error" id="login-error" role="alert" hidden></p>
+            <button class="primary-button login-submit" type="submit">Sign in <span>→</span></button>
+          </form>
+          <p class="login-footnote">PRIVATE MEMBERSHIP · BASSEY'S CRIB</p>
+        </div>
+      </main>
+    </section>
+    <div class="app-shell" hidden>
+      <aside class="sidebar" id="sidebar">
+        <a class="brand" href="#overview" aria-label="Bassey's Crib home">
+          <span class="brand-mark" aria-hidden="true"><span>B</span><i>C</i></span>
+          <span class="brand-copy"><strong>BASSEY'S CRIB</strong><small>HOTEL &amp; RESIDENCE</small></span>
+        </a>
+        <div class="property-select"><span class="property-gem">✦</span><span><strong>Bassey's Crib</strong><small>Hotel &amp; residence</small></span><span class="select-caret">⌄</span></div>
+        <div class="nav-label">WORKSPACE</div>
+        <nav class="main-nav" aria-label="Main navigation">
+          <button class="nav-item active" data-view="overview"><span class="nav-icon">◫</span>Overview</button>
+          <button class="nav-item" data-view="reservations"><span class="nav-icon">▤</span>Reservations <span class="nav-count" id="reservation-count">08</span></button>
+          <button class="nav-item" data-view="rooms"><span class="nav-icon">▦</span>Rooms</button>
+          <button class="nav-item" data-view="guests"><span class="nav-icon">♙</span>Guests</button>
+          <button class="nav-item" data-view="analytics"><span class="nav-icon">⌁</span>Analytics</button>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="help-line"><span class="help-spark">✳</span><span><strong>Need a hand?</strong><small>Our team is one click away.</small></span><button class="icon-button help-button" aria-label="Contact support">↗</button></div>
+          <button class="profile-button" id="sign-out-button" type="button" title="Sign out"><span class="avatar avatar-admin">HM</span><span class="profile-copy"><strong>Hotel manager</strong><small>Workspace profile</small></span><span class="profile-more">↪</span></button>
+        </div>
+      </aside>
+      <main class="main-content">
+        <header class="topbar">
+          <button class="mobile-menu icon-button" id="menu-button" aria-label="Open navigation">☰</button>
+          <div class="breadcrumb">Bassey's Crib <span>/</span> <strong id="breadcrumb-current">Overview</strong></div>
+          <div class="topbar-actions"><span class="today-label" id="today-label"></span><div class="currency-control" id="currency-control"><button class="currency-trigger" id="currency-trigger" type="button" aria-label="Choose display currency" aria-haspopup="menu" aria-expanded="false"><span class="currency-trigger-symbol" data-currency-symbol>₦</span><span class="currency-caret">⌄</span></button><div class="currency-menu" id="currency-menu" role="menu" aria-label="Display currency" hidden><button class="currency-option" type="button" role="menuitemradio" data-currency-option="NGN" aria-checked="true"><span class="currency-option-symbol">₦</span><span class="currency-option-copy"><strong>Nigerian naira</strong><small>NGN</small></span><span class="currency-option-check">✓</span></button><button class="currency-option" type="button" role="menuitemradio" data-currency-option="USD" aria-checked="false"><span class="currency-option-symbol">$</span><span class="currency-option-copy"><strong>US dollar</strong><small>USD</small></span><span class="currency-option-check">✓</span></button><button class="currency-option" type="button" role="menuitemradio" data-currency-option="EUR" aria-checked="false"><span class="currency-option-symbol">€</span><span class="currency-option-copy"><strong>Euro</strong><small>EUR</small></span><span class="currency-option-check">✓</span></button><button class="currency-option" type="button" role="menuitemradio" data-currency-option="GBP" aria-checked="false"><span class="currency-option-symbol">£</span><span class="currency-option-copy"><strong>British pound</strong><small>GBP</small></span><span class="currency-option-check">✓</span></button></div><select class="currency-select" id="currency-selector" aria-label="Display currency" hidden tabindex="-1" aria-hidden="true"><option value="NGN">₦ NGN</option><option value="USD">$ USD</option><option value="EUR">€ EUR</option><option value="GBP">£ GBP</option></select></div><button class="icon-button theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">☾</button><button class="icon-button search-trigger" id="search-trigger" aria-label="Search">⌕</button><button class="icon-button notification-button" id="notification-button" aria-label="Notifications">♧<i></i></button><span class="topbar-divider"></span><span class="avatar avatar-top">HM</span></div>
+        </header>
+        <div class="page-body" data-view="overview">
+          <section class="welcome-row">
+            <div class="welcome-copy"><div class="eyebrow"><span class="live-dot"></span><span id="today-heading-date"></span><span class="eyebrow-separator">·</span> SHIFT OVERVIEW</div><h1>Your hotel dashboard<span class="title-period">.</span></h1><p>Records appear here when you add them.</p></div>
+            <button class="primary-button" id="new-reservation-button"><span>＋</span> New reservation</button>
+          </section>
+          <section class="metrics-grid" aria-label="Today's hotel metrics">
+            <article class="metric-card"><div class="metric-top"><span class="metric-label">OCCUPANCY</span><span class="metric-icon icon-sage">▦</span></div><div class="metric-number"><span id="occupancy-value">84</span><small>%</small><span class="metric-change positive">↗ 6.2%</span></div><div class="metric-note">vs. 77% last Thursday</div><div class="metric-progress"><span style="width:84%"></span></div></article>
+            <article class="metric-card"><div class="metric-top"><span class="metric-label">ARRIVALS TODAY</span><span class="metric-icon icon-rose">↗</span></div><div class="metric-number"><span id="arrivals-value">12</span><span class="metric-change neutral">4 pending</span></div><div class="metric-note">First check-in expected at 11:30</div><div class="metric-progress rose-progress"><span style="width:68%"></span></div></article>
+            <article class="metric-card"><div class="metric-top"><span class="metric-label">ROOMS TO SERVICE</span><span class="metric-icon icon-gold">✳</span></div><div class="metric-number"><span id="service-value">08</span><span class="metric-change positive">3 ready</span></div><div class="metric-note">Housekeeping is on the floor</div><div class="metric-progress gold-progress"><span style="width:38%"></span></div></article>
+            <article class="metric-card revenue-card"><div class="metric-top"><span class="metric-label">REVENUE TODAY</span><span class="metric-icon icon-blue" data-currency-symbol>£</span></div><div class="metric-number"><small data-currency-symbol>£</small><span id="revenue-value">0</span><span class="metric-change positive">↗ 12.8%</span></div><div class="metric-note">vs. £16,330 daily average</div><div class="revenue-sparkline" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></article>
+          </section>
+          <section class="hero-strip">
+            <div class="hero-message"><span class="hero-kicker">A WELL-RUN HOUSE</span><h2>Hospitality, in<br />the little details.</h2><p>Every arrival is a chance to make someone feel at home.</p><button class="text-button" data-view="reservations">View today’s arrivals <span>→</span></button></div>
+            <div class="hero-scene"><div class="scene-caption"><span class="live-dot"></span> YOUR HOUSE, RIGHT NOW</div><canvas id="hotel-canvas" aria-label="Animated 3D hotel service icons"></canvas><span class="scene-hint">BASSEY'S CRIB <i>✦</i> HOTEL &amp; RESIDENCE</span></div>
+            <div class="hero-side-stat"><span class="stat-ring"><span>4.9<small>/5</small></span></span><span class="stat-label">GUEST<br />SATISFACTION</span><span class="stat-review">Based on 128 reviews</span></div>
+          </section>
+          <section class="content-grid">
+            <article class="panel reservations-panel" id="reservations-panel">
+              <div class="panel-header"><div><span class="panel-eyebrow">YOUR FRONT DESK</span><h3>Today’s reservations <span class="heading-count" id="table-count">08</span></h3></div><button class="quiet-link" data-view="reservations">View all <span>→</span></button></div>
+              <div class="table-tools"><div class="table-tabs" role="tablist" aria-label="Filter reservations"><button class="table-tab active" data-filter="all">All <span id="all-count">8</span></button><button class="table-tab" data-filter="arriving">Arriving <span id="arriving-count">5</span></button><button class="table-tab" data-filter="in-house">In-house <span id="in-house-count">3</span></button></div><button class="table-search" id="table-search-button" aria-label="Search reservations">⌕<span>Search</span></button></div>
+              <div class="table-wrap"><table><thead><tr><th>GUEST</th><th>ROOM</th><th>STAY</th><th>STATUS</th><th></th></tr></thead><tbody id="reservation-rows"></tbody></table></div>
+              <div class="table-footer"><span>Showing <strong id="showing-count">8</strong> reservations</span><button class="footer-link" data-view="reservations">See all reservations <span>→</span></button></div>
+            </article>
+            <div class="right-column">
+              <article class="panel arrivals-panel"><div class="panel-header compact-header"><div><span class="panel-eyebrow">ON THE CALENDAR</span><h3>Arrivals</h3></div><button class="icon-button mini-menu" aria-label="More arrival options">···</button></div><div class="chart-key"></div><div class="chart-wrap"><canvas id="arrival-chart" aria-label="Reservation arrivals chart"></canvas><div class="chart-xlabels"></div></div><div class="arrival-summary"><span>0 arrivals</span></div></article>
+              <article class="panel activity-panel"><div class="panel-header compact-header"><div><span class="panel-eyebrow">JUST NOW</span><h3>House activity</h3></div><button class="quiet-link activity-more" data-view="analytics">History <span>→</span></button></div><div class="activity-list" id="activity-list"></div></article>
+            </div>
+          </section>
+          <footer class="page-footer"><span>BASSEY'S CRIB <i>✦</i> HOTEL &amp; RESIDENCE</span><span>MADE FOR A BETTER STAY</span></footer>
+        </div>
+      </main>
+    </div>
+    <dialog class="reservation-dialog" id="reservation-dialog" aria-labelledby="dialog-title">
+      <form id="reservation-form" method="dialog"><div class="dialog-topline"><span class="panel-eyebrow">BASSEY'S CRIB · HOTEL &amp; RESIDENCE</span><button type="button" class="icon-button dialog-close" id="dialog-close" aria-label="Close">×</button></div>
+        <h2 id="dialog-title">A new arrival.</h2><p class="dialog-intro">Make a little room for someone special.</p>
+        <label class="field-label" for="guest-name">GUEST NAME</label><input class="form-input" id="guest-name" name="name" placeholder="e.g. Alexandra Martin" required minlength="2" />
+        <div class="form-split"><div><label class="field-label" for="guest-room">ROOM NUMBER</label><input class="form-input" id="guest-room" name="room" placeholder="Enter room number" required /></div><div><label class="field-label" for="guest-nights">NIGHTS</label><input class="form-input" id="guest-nights" name="nights" type="number" min="1" max="30" placeholder="Enter nights" required /></div></div>
+        <label class="field-label" for="guest-arrival">ARRIVAL DATE</label><input class="form-input" id="guest-arrival" name="arrival" type="date" required />
+        <label class="field-label" id="guest-rate-label" for="guest-rate">NIGHTLY RATE (£)</label><input class="form-input" id="guest-rate" name="rate" type="number" min="0" step="0.01" placeholder="Optional" />
+        <button class="primary-button submit-button" type="submit"><span>＋</span> Confirm reservation</button><p class="dialog-note">Reservations are saved in this browser.</p>
+      </form>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
